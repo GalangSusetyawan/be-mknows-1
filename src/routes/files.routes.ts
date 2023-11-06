@@ -17,10 +17,24 @@ export class FileRouter implements Routes {
 
   private initializeRoutes() {
     this.router.post(
-      `/v1/${this.path}/upload`, 
+      `/v1/${this.path}/upload`,
       AuthMiddleware,
-      uploadFile.single("file"), 
+      uploadFile.single("file"),
       this.file.uploadFile
     );
+
+
+    this.router.get(
+      `/v1/${this.path}/:file_id/preview`,
+      AuthMiddleware,
+      this.file.getFile
+    )
+
+    this.router.get(
+      `/v1/${this.path}/mine`,
+      AuthMiddleware,
+      this.file.getFileMine
+    );
+
   }
 }
